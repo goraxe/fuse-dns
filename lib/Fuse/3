@@ -1,0 +1,81 @@
+package Fuse::Node;
+
+use strict;
+use warnings;
+
+use Carp qw(croak carp);
+
+use Data::Dumper;
+
+my $defaults = {
+	dev		=> 0,
+	inode	=> 0, 
+	type	=> 
+	rdev	=> 0,
+	blocks	=> 1,
+	gid		=> 0,
+	uid		=> 0,
+	nlink	=> 1,
+	blksize	=> 1024,
+	atime	=> 0,
+	mtime	=> 0,
+	ctime	=> 0,
+	size	=> 0,
+};
+
+my $mode_shift = {
+S_IFMT  => 0170000
+S_IFSOCK=> 0140000
+S_IFLNK => 0120000
+S_IFREG => 0100000
+S_IFBLK => 0060000
+S_IFDIR => 0040000
+S_IFCHR => 0020000
+S_IFIFO => 0010000
+S_ISUID => 0004000
+S_ISGID => 0002000
+S_ISVTX => 0001000
+};
+
+sub new {
+	my $class = shift;
+	my $opts =  (@_ % 2) ?  { name => shift } :  {@_} ;
+
+	$opts->{nodes} = {};
+
+	# check required parms 
+	foreach my $key (qw(name)) {
+		if (not exists($opts->{$key})) {
+			croak "$key is a required option";
+		}
+	}
+
+	# set defaults
+	foreach my $key (keys %$defaults) {
+		next if (exists ($opts->{$key}));
+		$opts->{$key} = $defaults->{$key};
+	}
+
+	return bless ($opts, $class);
+}
+
+#>---$file->{stat} = [$dev,$ino,$modes,$nlink,$uid,$gid,$rdev,$size,$atime,$mtime,$ctime,$blksize,$blocks];@
+sub stat {
+	
+}
+
+sub add_node {
+	my $self = shift;
+	my $node = shift;
+	$node->{parent} = $self;
+
+	$self->{nodes}->{$node->{name}} = $node;
+	return $node;
+}
+
+sub get_node {
+	my $self = shift;
+	my $node = shift;
+	return exists $self->{nodes}->{$node};
+}
+1;

@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="no"?>
+
+<testns version="1.0">
+	<server ip="127.0.0.1" port="5354">
+		<qname name="test.net">
+			<qtype type="IN, AXFR" delay="1">
+				<header>
+					<rcode value="NOERROR"/>
+					<aa value="1"/>
+					<ra value="0"/>
+					<ad value="0"/>
+					<qr value="0"/>
+					<tc value="1"/>
+<!--					<id value="1234"/>-->
+					<ancount value="1"/>
+					<nscount value="1"/>
+				</header>
+				<ans>
+					test.net.	3600 IN TXT "TEXT"
+				</ans>
+			</qtype>
+		</qname>
+	</server>
+</testns>

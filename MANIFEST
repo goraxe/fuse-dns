@@ -1,0 +1,20 @@
+Build.PL
+fuse-dns.pl
+lib/Fuse/3
+lib/Fuse/Dir.pm
+lib/Fuse/DNS.pm
+lib/Fuse/File.pm
+lib/Fuse/Fs.pm
+lib/Fuse/Fs.pm.tdy
+lib/Fuse/Node.pm
+Makefile.PL
+MANIFEST			This list of files
+t/01modules.t
+t/02node.t
+t/03dir.t
+t/04file.t
+t/05fs.t
+t/06fuse_dns.t
+t/99distribution.t
+t/test_ns.xml
+vfs-interface-ideas

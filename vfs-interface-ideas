@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+
+
+use strict;
+use warnings;
+
+use FUSE
+
+
+
+my $fs = FUSE::DNS->new();
+
+
+$fs->add_zone("amity.lan");
+$fs->add_zone(
+	zone=>"amity.lan", 
+	axfr_key=>"njvnzkbnd",
+	update_key=>"gkjlknfdk"
+);
+
+if ($fs->path_exists("/lan/amity")) {
+	my $node = $fs->get_node("/lan/amity");
+}
+
+if (not $fs->node_exist("/lan/amity/SOA") {
+	my $file = $fs->create_file("/lan/amity/SOA");
+	if (!$file) {
+		die $fs->error;
+	}
+	$file
+}
+
+=head1 Example Data
+
+{
+		'.' => {
+			type   => 'dir'
+			parent => '..'
+			perms  => 0666
+		},
+		lan => {
+			type   => 'dir'
+			parent => '..' # a reference?>
+			amity => {
+				type => 'dir',
+				parent => '..',
+				'SOA' => {
+=cut
